@@ -1,9 +1,61 @@
-set shell=/bin/bash
-execute pathogen#infect()
-syntax on
+" NeoBundle init start
+if has('vim_starting')
+   if &compatible
+     set nocompatible
+   endif
+   set runtimepath+=~/.vim/bundle/neobundle.vim/
+endif
+call neobundle#begin(expand('~/.vim/bundle/'))
+
+" Let NeoBundle manage NeoBundle
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+NeoBundle 'tpope/vim-endwise'
+NeoBundle 'tpope/vim-haml'
+NeoBundle 'tpope/vim-markdown'
+NeoBundle 'tpope/vim-ragtag'
+NeoBundle 'tpope/vim-rails'
+NeoBundle 'kchmck/vim-coffee-script'
+NeoBundle 'digitaltoad/vim-jade'
+NeoBundle 'tpope/vim-repeat'
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'tpope/vim-unimpaired'
+NeoBundle 'vim-ruby/vim-ruby'
+NeoBundle 'vim-scripts/nginx.vim'
+NeoBundle 'vim-scripts/textobj-rubyblock'
+NeoBundle 'vim-scripts/textobj-user'
+NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'godlygeek/tabular'
+NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'nathanaelkane/vim-indent-guides'
+NeoBundle 'flazz/vim-colorschemes'
+
+" NeoBundle init end
+" Bundle ''
+call neobundle#end()
 filetype plugin indent on
-colorscheme Monokai
+NeoBundleCheck
+
+" Set shell
+set shell=/bin/bash
+
+" Remap esc key
+inoremap jj <ESC>
+" Remap leader key
+let mapleader = "\<Space>"
+
+"alias unnamed register to the + register, which is the X Window clipboard.
+"set clipboard=unnamedplus
 set clipboard=unnamed
+
+"turn on syntax highlighting
+syntax on
+set synmaxcol=200
+syntax sync minlines=256
+
+" set colorscheme
+colorscheme Monokai
+
 set autoindent
 set backspace=indent,eol,start
 set complete-=i
@@ -14,8 +66,15 @@ set showcmd
 set wildmenu
 set cursorline
 
-set backupdir=./.backup,.,/tmp
-set directory=.,./.backup,/tmp
+set backup
+set backupdir=~/.vim/backup
+set swapfile
+set dir=~/.vim/swp
+
+" keep file undo history
+set undofile
+set undodir=~/.vim/undo
+set undolevels=100
 
 set autoread
 
@@ -28,13 +87,18 @@ set number
 set hlsearch
 set ignorecase
 set smartcase
+set mouse=a
+
+set dir=~/.vim/swp
 
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/* 
-autocmd VimEnter * NERDTree
-autocmd BufEnter * NERDTreeMirror
-set dir=~/.vim/swp
+
 let g:NERDTreeWinSize=40
 let NERDTreeShowHidden=1
+
+"autocmd VimEnter * NERDTree
+"autocmd BufEnter * NERDTreeMirror
+
 autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
 
 " Ident guides
@@ -57,10 +121,21 @@ vmap <C-k> [egv
 vmap <C-j> ]egv
 " New tab
 nmap <C-n> :tabnew<CR>
+
+
+nnoremap <leader>m o <esc>
+nnoremap <leader>M O <esc>
+nnoremap <leader>c :tabclose <cr>
+map <leader>s :NERDTreeFind<cr>
+ 
 " this should automatically change buffer on external modifications
 autocmd BufEnter,CursorHold,CursorHoldI * silent! :checktime
+"remove trailing whitespaces
+autocmd BufWritePre *.rb :%s/\s\+$//e
+autocmd BufWritePre *.coffee :%s/\s\+$//e
+autocmd BufWritePre *.c :%s/\s\+$//e
 
-set mouse=a
+
 " Close all open buffers on entering a window if the only
 " buffer that's left is the NERDTree buffer
 function! s:CloseIfOnlyNerdTreeLeft()
@@ -83,3 +158,5 @@ if executable('ag')
 endif
 
 " nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+" enable matchit
+runtime macros/matchit.vim
