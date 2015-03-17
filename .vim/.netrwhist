@@ -1,3 +1,5 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =1
+let g:netrw_dirhist_cnt =3
 let g:netrw_dirhist_1='/Users/piotr/.oh-my-zsh'
+let g:netrw_dirhist_2='/Users/piotr/work/doctor-app/core/app/models/core/repository'
+let g:netrw_dirhist_3='/Users/piotr/work/doctor-app/core/spec/serializers'

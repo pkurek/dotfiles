@@ -37,18 +37,28 @@ let g:NERDTreeWinSize=40
 let NERDTreeShowHidden=1
 autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
 
+" Ident guides
+let g:indent_guides_auto_colors=0
+let g:indent_guides_enable_on_vim_startup=1
+let g:indent_guides_default_mapping=0
+let g:indent_guides_guide_size=1
+let g:indent_guides_start_level=2
+hi IndentGuidesOdd  ctermbg=234
+hi IndentGuidesEven ctermbg=235
 
 " SHORTCUTS
 "
 "
 " Bubble single lines
-nmap <C-Up> [e
-nmap <C-Down> ]e
+nmap <C-k> [e
+nmap <C-j> ]e
 " Bubble multiple lines
-vmap <C-Up> [egv
-vmap <C-Down> ]egv
+vmap <C-k> [egv
+vmap <C-j> ]egv
 " New tab
 nmap <C-n> :tabnew<CR>
+" this should automatically change buffer on external modifications
+autocmd BufEnter,CursorHold,CursorHoldI * silent! :checktime
 
 set mouse=a
 " Close all open buffers on entering a window if the only
