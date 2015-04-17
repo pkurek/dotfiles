@@ -15,6 +15,8 @@ NeoBundle 'tpope/vim-haml'
 NeoBundle 'tpope/vim-markdown'
 NeoBundle 'tpope/vim-ragtag'
 NeoBundle 'tpope/vim-rails'
+NeoBundle 'kchmck/vim-coffee-script'
+NeoBundle 'digitaltoad/vim-jade'
 NeoBundle 'tpope/vim-repeat'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-unimpaired'
@@ -34,9 +36,16 @@ call neobundle#end()
 filetype plugin indent on
 NeoBundleCheck
 
+" Set shell
 set shell=/bin/bash
+
+" Remap esc key
+inoremap jj <ESC>
+" Remap leader key
+let mapleader = "\<Space>"
+
 "alias unnamed register to the + register, which is the X Window clipboard.
-" set clipboard=unnamedplus
+"set clipboard=unnamedplus
 set clipboard=unnamed
 
 "turn on syntax highlighting
@@ -57,8 +66,15 @@ set showcmd
 set wildmenu
 set cursorline
 
-set backupdir=./.backup,.,/tmp
-set directory=.,./.backup,/tmp
+set backup
+set backupdir=~/.vim/backup
+set swapfile
+set dir=~/.vim/swp
+
+" keep file undo history
+set undofile
+set undodir=~/.vim/undo
+set undolevels=100
 
 set autoread
 
@@ -77,11 +93,11 @@ set dir=~/.vim/swp
 
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/* 
 
-autocmd VimEnter * NERDTree
-autocmd BufEnter * NERDTreeMirror
-
 let g:NERDTreeWinSize=40
 let NERDTreeShowHidden=1
+
+"autocmd VimEnter * NERDTree
+"autocmd BufEnter * NERDTreeMirror
 
 autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
 
@@ -105,8 +121,20 @@ vmap <C-k> [egv
 vmap <C-j> ]egv
 " New tab
 nmap <C-n> :tabnew<CR>
+
+
+nnoremap <leader>m o <esc>
+nnoremap <leader>M O <esc>
+nnoremap <leader>c :tabclose <cr>
+map <leader>s :NERDTreeFind<cr>
+map <leader>t :NERDTree<cr>
+
 " this should automatically change buffer on external modifications
 autocmd BufEnter,CursorHold,CursorHoldI * silent! :checktime
+"remove trailing whitespaces
+autocmd BufWritePre *.rb :%s/\s\+$//e
+autocmd BufWritePre *.coffee :%s/\s\+$//e
+autocmd BufWritePre *.c :%s/\s\+$//e
 
 
 " Close all open buffers on entering a window if the only
