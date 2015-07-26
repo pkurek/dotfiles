@@ -29,6 +29,8 @@ NeoBundle 'godlygeek/tabular'
 NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'flazz/vim-colorschemes'
+NeoBundle 'elixir-lang/vim-elixir'
+NeoBundle 'mtscout6/vim-cjsx'
 
 " NeoBundle init end
 " Bundle ''
@@ -98,6 +100,7 @@ let NERDTreeShowHidden=1
 
 "autocmd VimEnter * NERDTree
 "autocmd BufEnter * NERDTreeMirror
+au BufRead,BufNewFile *.thor set filetype=ruby
 
 autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
 
@@ -135,6 +138,7 @@ autocmd BufEnter,CursorHold,CursorHoldI * silent! :checktime
 autocmd BufWritePre *.rb :%s/\s\+$//e
 autocmd BufWritePre *.coffee :%s/\s\+$//e
 autocmd BufWritePre *.c :%s/\s\+$//e
+autocmd BufWritePre *.ino :%s/\s\+$//e
 
 
 " Close all open buffers on entering a window if the only
